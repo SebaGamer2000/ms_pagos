@@ -1,11 +1,15 @@
 package com.Pagos.Pagos.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
@@ -26,5 +30,9 @@ public class Pago {
 
     @Column(nullable = false)
     private Long membresiaPagada;
+
+    @Column
+
+    private LocalDateTime fechapago;
 
 }

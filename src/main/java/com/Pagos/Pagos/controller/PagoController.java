@@ -1,15 +1,14 @@
 package com.Pagos.Pagos.controller;
 
+import com.Pagos.Pagos.dto.PagoRequestDTO;
 import com.Pagos.Pagos.dto.PagoResponseDTO;
 import com.Pagos.Pagos.model.Pago;
 import com.Pagos.Pagos.service.PagoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +24,8 @@ public class PagoController {
         return ResponseEntity.ok(pagoService.listarAllPagos());
     }
 
+
+    // Buscar pagos por el id pago
     @GetMapping("{idPago}")
     ResponseEntity<PagoResponseDTO> buscarPagoId(@PathVariable Long idPago){
         return pagoService.buscarPorId(idPago)
@@ -32,9 +33,17 @@ public class PagoController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    // Filtrar todos los pagos de un run asociado
     @GetMapping("/filtrorun/{runpagado}")
     ResponseEntity<List<PagoResponseDTO>> buscarPagoRUN(@PathVariable String runpagado){
         return ResponseEntity.ok(pagoService.filtrarPagosRut(runpagado));
     }
+
+    @PostMapping("/registrar")
+    public ResponseEntity<?> crearPago(@Valid @RequestBody PagoRequestDTO dto){
+        return ResponseEntity.ok(pagoService.subirPago(dto));
+    }
+
+
 
 }

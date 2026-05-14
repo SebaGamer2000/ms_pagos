@@ -23,14 +23,5 @@ public class DataInitializer implements CommandLineRunner {
         }
 
         log.info("No hay datos guardados, creando datos");
-
-        // Solo para pruebas
-        pagoRepository.save(new Pago(null, "204431221", 15000L, 1L)); // Membresía básica
-        pagoRepository.save(new Pago(null, "18992334K", 25000L, 2L)); // Membresía premium
-        pagoRepository.save(new Pago(null, "256628166", 15000L, 1L)); // El tuyo, Nano
-        pagoRepository.save(new Pago(null, "153329884", 45000L, 3L)); // Membresía VIP
-        pagoRepository.save(new Pago(null, "210094437", 25000L, 2L)); // Membresía premium
-
-
     }
 }
