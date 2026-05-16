@@ -2,12 +2,10 @@ package com.Pagos.Pagos.controller;
 
 import com.Pagos.Pagos.dto.PagoRequestDTO;
 import com.Pagos.Pagos.dto.PagoResponseDTO;
-import com.Pagos.Pagos.model.Pago;
 import com.Pagos.Pagos.service.PagoService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,11 +37,9 @@ public class PagoController {
         return ResponseEntity.ok(pagoService.filtrarPagosRut(runpagado));
     }
 
+    // Añadir pago en BD de tienda
     @PostMapping("/registrar")
     public ResponseEntity<?> crearPago(@Valid @RequestBody PagoRequestDTO dto){
         return ResponseEntity.ok(pagoService.subirPago(dto));
     }
-
-
-
 }

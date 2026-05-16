@@ -1,12 +1,13 @@
 package com.Pagos.Pagos.service;
 
+import com.Pagos.Pagos.clientes.ProductoFeignClient;
 import com.Pagos.Pagos.dto.PagoRequestDTO;
 import com.Pagos.Pagos.dto.PagoResponseDTO;
 import com.Pagos.Pagos.model.Pago;
 import com.Pagos.Pagos.repository.PagoRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.client.RestTemplate;
@@ -21,10 +22,11 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class PagoService {
-
+    @Autowired
     private final PagoRepository pagoRepository;
     private final RestTemplate restTemplate = new RestTemplate();
 
+    private final ProductoFeignClient productoFeignClient;
 
     private PagoResponseDTO mapToDTO(Pago pago){
         PagoResponseDTO response = new PagoResponseDTO();
