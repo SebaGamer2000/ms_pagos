@@ -2,6 +2,7 @@ package com.Pagos.Pagos.controller;
 
 import com.Pagos.Pagos.dto.PagoRequestDTO;
 import com.Pagos.Pagos.dto.PagoResponseDTO;
+import com.Pagos.Pagos.dto.PagoTiendaDTO;
 import com.Pagos.Pagos.service.PagoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -25,7 +26,7 @@ public class PagoController {
     // Listar todos los pagos de la bd
     @GetMapping("/listarpagos")
     //Swagger
-    @Operation(summary = "Listar todos los pagos", description = "Obtiene una lista de todos los pagos realizados.")
+    @Operation(summary = "Listar todos los pagos de MEMBRESIAS", description = "Obtiene una lista de todos los pagos realizados.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pagos listados correctamente")
     })
@@ -50,7 +51,7 @@ public class PagoController {
 
     // Filtrar todos los pagos de un run asociado
     @GetMapping("/filtrorun/{runpagado}")
-    @Operation(summary = "Buscar todos los pagos de algún RUN ", description = "Busca y lista los pagos filtrandolos por el RUN buscado")
+    @Operation(summary = "Buscar todos los pagos de algún RUN", description = "Busca y lista los pagos filtrandolos por el RUN buscado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pagos encontrados"),
             @ApiResponse(responseCode = "404", description = "Pagos no encontrados"),
@@ -62,7 +63,7 @@ public class PagoController {
 
     // Añadir pago en BD de tienda
     @PostMapping("/registrar")
-    @Operation(summary = "Registrar un pago nuevo ", description = "Utilizado para agregar un nuevo pago al sistema")
+    @Operation(summary = "Registrar un pago nuevo de MEMBRESIAS", description = "Utilizado para agregar un nuevo pago al sistema")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Pago añadido correctamente"),
             @ApiResponse(responseCode = "404", description = "Error al añadir al pago"),
@@ -70,5 +71,28 @@ public class PagoController {
     })
     public ResponseEntity<?> crearPago(@Valid @RequestBody PagoRequestDTO dto){
         return ResponseEntity.ok(pagoService.registrarPago(dto));
+    }
+
+    // --------------- PAGOS TIENDA -----------------------
+    @PostMapping("/registrar/tienda")
+    @Operation(summary = "Registrar un pago nuevo de la TIENDA", description = "Utilizado para agregar un nuevo pago al sistema")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pago añadido correctamente"),
+            @ApiResponse(responseCode = "404", description = "Error al añadir al pago"),
+            @ApiResponse(responseCode = "500", description = "Error del servidor")
+    })
+    public ResponseEntity<PagoTiendaDTO> registrarPago(@Valid @RequestBody PagoTiendaDTO dto){
+        return ResponseEntity.ok(pagoService.registrarPagoTienda(dto));
+    }
+
+    // Listar todos los pagos de la bd
+    @GetMapping("/listarpagos/tienda")
+    //Swagger
+    @Operation(summary = "Listar todos los pagos de la TIENDA", description = "Obtiene una lista de todos los pagos realizados.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Pagos listados correctamente")
+    })
+    ResponseEntity<List<PagoTiendaDTO>> listarPagosTienda(){
+        return ResponseEntity.ok(pagoService.listarAllPagosTienda());
     }
 }
