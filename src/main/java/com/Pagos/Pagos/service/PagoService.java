@@ -90,7 +90,7 @@ public class PagoService {
             PagoRequestDTO usuario = webClientBuilder.build()
                     //Aca se busca el socio en el ms-usuarios
                     .get()
-                    .uri("http://USUARIO/gym/socios/busqueda/" + dto.getRun())
+                    .uri("https://ms-usuarios-n9lf.onrender.com/gym/socios/busqueda/" + dto.getRun())
                     //.header("Authorization", token)
                     .retrieve()
                     .onStatus(status -> status.is4xxClientError(), response -> Mono.empty())
@@ -109,7 +109,7 @@ public class PagoService {
         // Obtener datos de la membresia
         MembresiaDTO membresia = webClientBuilder.build()
                 .get()
-                .uri("http://MEMBRESIAS/api/membresias/" + dto.getIdmembresia())
+                .uri("https://membresia.onrender.com/api/membresias/" + dto.getIdmembresia())
                 .retrieve()
                 .onStatus(status -> status.is4xxClientError(), response -> Mono.empty())
                 .onStatus(status -> status.is5xxServerError(), response ->
@@ -125,7 +125,7 @@ public class PagoService {
         // una vez exista el usuario y los datos de la membresia existan tambien, se procesa el pago.
         webClientBuilder.build()
                 .put()
-                .uri("http://USUARIO/gym/socios/procesarpago/" + dto.getRun())
+                .uri("https://ms-usuarios-n9lf.onrender.com/gym/socios/procesarpago/" + dto.getRun())
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(Map.of("nombreMembresia", membresia.getTipoPlan()))
                 .retrieve()
@@ -154,7 +154,7 @@ public class PagoService {
         PagoTiendaDTO producto = webClientBuilder.build()
                 //Aca se busca el socio en el ms-usuarios
                 .get()
-                .uri("http://MS-TIENDA/gym/tienda/busqueda/id/" + dto.getIdProducto())
+                .uri("https://ms-tienda-2l75.onrender.com/gym/tienda/busqueda/id/" + dto.getIdProducto())
                 //.header("Authorization", token)
                 .retrieve()
                 .onStatus(status -> status.is4xxClientError(), response -> Mono.empty())
